@@ -1,49 +1,52 @@
-""" 2. Написать программу сложения и умножения двух шестнадцатеричных чисел.
-При этом каждое число представляется как массив, элементы которого это цифры числа.
-Например, пользователь ввёл A2 и C4F. Сохранить их как [‘A’, ‘2’] и [‘C’, ‘4’, ‘F’] соответственно.
-Сумма чисел из примера: [‘C’, ‘F’, ‘1’], произведение - [‘7’, ‘C’, ‘9’, ‘F’, ‘E’]."""
-
-from itertools import zip_longest
-from collections import deque
+""" 1. Подсчитать, сколько было выделено памяти под переменные в ранее разработанных программах.
+ Проанализировать результат и определить программы с наиболее эффективным использованием памяти.
+ 7. В одномерном массиве целых чисел определить два наименьших элемента.
+Они могут быть как равны между собой (оба являться минимальными), так и различаться."""
 
 
-my_num = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-          '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11,
-          'C': 12, 'D': 13, 'E': 14, 'F': 15}
-
-first_num = [i for i in input('Введите любой набор чисел и букв (123456789ABCDEF): ')]
-second_num = [i for i in input('Введите любой набор чисел и букв (123456789ABCDEF): ')]
-sum1 = 0
-sum2 = 0
-index = 0
+import sys
+from random import randint
 
 
-def my_hex(sum_, any_dict):
-    new_lst = deque()
-    idx = 0
-    while sum_ > 10:
-        new_lst.appendleft(sum_ % 16)
-        sum_ //= 16
-    else:
-        new_lst.appendleft(sum_)
-    for i in new_lst:
-        for key, value in any_dict.items():
-            if value == i:
-                print(key, end='')
-                idx += 1
-    print()
-
-first_num.reverse(), second_num.reverse()
-
-for val, val2 in zip_longest(first_num, second_num):
-    sum1 += my_num[val] * (16 ** index)
-    if val2 is not None:
-        sum2 += my_num[val2] * (16 ** index)
-    index += 1
-
-total_sum = sum1 + sum2
-multi = sum1 * sum2
+my_list = [randint(-10, 25) for i in range(12)]
 
 
-my_hex(total_sum, my_num)
-my_hex(multi, my_num)
+def show(obj):
+    print(f'{type(obj) = }, {sys.getsizeof(obj) = } {obj = }')
+    if hasattr(obj, '__iter__'):
+        if hasattr(obj, 'items'):
+            for key, value in object.items():
+                show(key)
+                show(value)
+        else:
+            for item in obj:
+                show(item)
+
+
+def two_min_num(any_list):
+    min_1, min_2 = any_list[0], any_list[0]
+    for el in any_list:
+        if el < min_1:
+            min_1 = el
+    for el2 in any_list:
+        if min_1 < el2 < min_2:
+            min_2 = el2
+    return min_1, min_2
+
+show(my_list)
+show(two_min_num)
+
+""" type(obj) = <class 'list'>, sys.getsizeof(obj) = 184 obj =[-5, 20, -5, 21, 1, 19, 8, 15, 20, -2, 11, -4]
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =-5
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =20
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =-5
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =21
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =1
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =19
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =8
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =15
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =20
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =-2
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =11
+type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =-4
+type(obj) = <class 'function'>, sys.getsizeof(obj) = 136 obj =<function two_min_num at 0x000001CDED2214C0>"""
