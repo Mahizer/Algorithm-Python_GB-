@@ -1,51 +1,23 @@
-""" lesson3 - 1. В диапазоне натуральных чисел от 2 до 99 определить,
- сколько из них кратны каждому из чисел в диапазоне от 2 до 9. """
-
-import sys
-
-
-my_dict = {key: [] for key in range(2, 10)}
-
-
-def show(obj):
-    print(f'{type(obj) = }, {sys.getsizeof(obj) = } {obj =}')
-    if hasattr(obj, '__iter__'):
-        if hasattr(obj, 'items'):
-            for key, value in obj.items():
-                show(key)
-                show(value)
-        else:
-            for item in obj:
-                show(item)
-
-
-def my_def(any_dict):
-    for i in range(2, 100):
-        for j in range(2, 10):
-            if i % j == 0:
-                any_dict[j].append(i)
-
-    for key, values in zip(any_dict.keys(), any_dict.values()):
-        print(f'{key} = {values}')
-
-
-show(my_dict)
-
-""" type(obj) = <class 'dict'>, sys.getsizeof(obj) = 360 obj ={2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =2
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =3
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =4
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =5
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =6
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =7
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =8
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
-type(obj) = <class 'int'>, sys.getsizeof(obj) = 28 obj =9
-type(obj) = <class 'list'>, sys.getsizeof(obj) = 56 obj =[]
 """
+ 3. Массив размером 2m + 1, где m – натуральное число, заполнен случайным образом. Найдите в массиве медиану.
+ Медианой называется элемент ряда, делящий его на две равные части: в одной находятся элементы,
+ которые не меньше медианы, в другой – не больше медианы.
+ Задачу можно решить без сортировки исходного массива.
+  Но если это слишком сложно, то используйте метод сортировки, который не рассматривался на уроках
+"""
+
+
+from random import randint
+
+
+lst = [randint(-100, 1000) for _ in range(2 * randint(0, 4) + 1)]
+left = []
+right = []
+print(lst)
+lst = sorted(lst)
+
+median = lst[len(lst) // 2]
+print(median)
+print(lst)
+
+
